@@ -2,7 +2,7 @@
 Code Fellows - Code 401 - Lab 07
 
 ## Server
-URL: 
+URL: https://bearer-auth-uj61.onrender.com 
 
 ## UML Architecture
 
