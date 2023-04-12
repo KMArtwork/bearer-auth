@@ -11,7 +11,12 @@ const userSchema = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        return jwt.sign({ username: this.username}, process.env.SECRET);
+        return jwt.sign({
+          username: this.username,
+        }, 
+        process.env.SECRET,
+        {expiresIn: '0.25h'}
+        );
       }
     }
   });
@@ -34,7 +39,11 @@ const userSchema = (sequelize, DataTypes) => {
     try {
       const parsedToken = jwt.verify(token, process.env.SECRET);
       const user = await this.findOne({ username: parsedToken.username })
-      if (user) { return user; }
+      if (user) {
+        // if the token is expired, we need to refresh the token
+        // not sure how to do that though? lol, need to ask in class
+        return user; 
+      }
       throw new Error("User Not Found");
     } catch (e) {
       throw new Error(e.message)
