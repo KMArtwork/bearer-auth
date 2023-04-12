@@ -27,9 +27,18 @@
 # ./src/auth/middleware/bearer.js
 - Needed to invoke `next()` at the end of the `try{}` block
 
-
 # ./src/auth/middleware/basic.js
 - `if` statement was returning a function `_authError()` that was never declared
   - Invoke `next()` instead with an error string
 - Needed to split `req.headers.authorization` to isolate the `username:password`
 - Needed to import `users` instead of `user` from `../models/index.js`
+
+# handlers.js
+## handleSecret()
+- replace `.text()` with `.send()`
+## handleGetUsers()
+- `Users` needed to be lower cased (e.g. `users.findAll({})` NOT `Users.findAll({})`)
+## handleSignin()
+- Request parameter was defined as `req` but the try block was using `request`; Changed `request` to `req`
+## handleSignup()
+- Change status code to `201` instead of `200` to signify user has been successfully created
