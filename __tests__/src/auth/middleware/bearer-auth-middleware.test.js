@@ -32,7 +32,7 @@ describe('Auth Middleware', () => {
 
   describe('user authentication', () => {
 
-    it('fails a login for a user (admin) with an incorrect token', () => {
+    test('fails a login for a user (admin) with an incorrect token', () => {
 
       req.headers = {
         authorization: 'Bearer thisisabadtoken',
@@ -46,10 +46,10 @@ describe('Auth Middleware', () => {
 
     });
 
-    it('logs in a user with a proper token', () => {
+    test('logs in a user with a proper token', () => {
 
       const user = { username: 'admin' };
-      const token = jwt.sign(user, process.env.SECRET);
+      const token = jwt.sign(user.username, process.env.SECRET);
 
       req.headers = {
         authorization: `Bearer ${token}`,
