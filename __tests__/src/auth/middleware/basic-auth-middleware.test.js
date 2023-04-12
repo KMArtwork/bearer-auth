@@ -3,7 +3,7 @@
 process.env.SECRET = "TEST_SECRET";
 
 const base64 = require('base-64');
-const middleware = require('../../../../src/auth/middleware/basic.js');
+const basic = require('../../../../src/auth/middleware/basic.js');
 const { db, users } = require('../../../../src/auth/models/index.js');
 
 let userInfo = {
@@ -34,7 +34,7 @@ describe('Auth Middleware', () => {
 
   describe('user authentication', () => {
 
-    it('fails a login for a user (admin) with the incorrect basic credentials', () => {
+    test('fails a login for a user (admin) with the incorrect basic credentials', () => {
       const basicAuthString = base64.encode('username:password');
 
       // Change the request to match this test case
@@ -42,7 +42,7 @@ describe('Auth Middleware', () => {
         authorization: `Basic ${basicAuthString}`,
       };
 
-      return middleware(req, res, next)
+      return basic(req, res, next)
         .then(() => {
           expect(next).not.toHaveBeenCalled();
           expect(res.status).toHaveBeenCalledWith(403);
@@ -50,15 +50,14 @@ describe('Auth Middleware', () => {
 
     });
 
-    it('logs in an admin user with the right credentials', () => {
+    test('logs in an admin user with the right credentials', () => {
       let basicAuthString = base64.encode(`${userInfo.admin.username}:${userInfo.admin.password}`);
-
       // Change the request to match this test case
       req.headers = {
         authorization: `Basic ${basicAuthString}`,
       };
 
-      return middleware(req, res, next)
+      return basic(req, res, next)
         .then(() => {
           expect(next).toHaveBeenCalledWith();
         });
