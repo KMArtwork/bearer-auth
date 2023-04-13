@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "SET NODE_ENV=production&& nodemon index.js",
-    "dev": "SET NODE_ENV=development&& nodemon index.js",
+    "start": "cross-env NODE_ENV=production&& nodemon index.js",
+    "dev": "cross-env NODE_ENV=development&& nodemon index.js",
     "init:config": "sequelize init:config",
     "db:create": "sequelize db:create",
-    "watch": "SET NODE_ENV=development&& nodemon index.js",
-    "test:watch": "SET NODE_ENV=test&& jest --watchAll",
-    "test": "SET NODE_ENV=test&& jest"
+    "watch": "cross-env NODE_ENV=development&& nodemon index.js",
+    "test:watch": "cross-env NODE_ENV=test&& jest --watchAll",
+    "test": "cross-env NODE_ENV=test&& jest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "base-64": "^1.0.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^26.6.3",
